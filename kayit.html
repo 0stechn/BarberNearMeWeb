@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>İşletme Kaydı — BarberNearMe</title>
+<style>
+  :root{ --black:#020000; --yellow:#FFCE38; --green:#22C55E; --muted:#6B7280; --line:#E8E8E8; --bg:#FFFFFF; --danger:#EF4444; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--black);background:#fafafa;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+  nav{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px}
+  .badge{width:34px;height:34px;border-radius:10px;background:var(--yellow);display:grid;place-items:center}
+  .back{font-size:14px;font-weight:700;color:var(--muted)}
+
+  .hero{padding:36px 0 10px}
+  .hero h1{font-size:30px;font-weight:900;letter-spacing:-.6px}
+  .hero p{color:var(--muted);margin-top:8px;font-size:15px}
+
+  form{padding:20px 0 60px}
+  .sect{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:16px}
+  .sect h2{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#8a6d00;margin-bottom:14px}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:10px 0 6px}
+  input,select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font-size:15px;color:var(--black);background:#fff;font-family:inherit}
+  input:focus,select:focus{outline:none;border-color:var(--yellow)}
+  .row{display:flex;gap:12px}
+  .row>div{flex:1}
+  .days{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .day{padding:8px 12px;border:1.5px solid var(--line);border-radius:20px;font-size:13px;cursor:pointer;user-select:none}
+  .day.on{background:var(--yellow);border-color:var(--yellow);font-weight:700}
+  .rowItem{display:flex;gap:8px;align-items:center;margin-top:8px}
+  .rowItem input{flex:1}
+  .rowItem .del{flex:0 0 auto;width:38px;height:38px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--danger);font-size:18px;cursor:pointer}
+  .addBtn{margin-top:10px;background:#fff;border:1.5px dashed var(--line);border-radius:10px;padding:10px;width:100%;font-weight:700;color:var(--black);cursor:pointer;font-size:14px}
+  .geoBtn{margin-top:8px;background:#FFF7DE;border:1px solid var(--yellow);border-radius:10px;padding:10px;width:100%;font-weight:700;color:#8a6d00;cursor:pointer;font-size:13px}
+  .submit{margin-top:22px;background:var(--yellow);border:none;border-radius:14px;padding:16px;width:100%;font-size:16px;font-weight:800;color:var(--black);cursor:pointer}
+  .submit:disabled{opacity:.6;cursor:default}
+  .msg{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:14px;display:none}
+  .msg.err{display:block;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+  .msg.ok{display:block;background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap"><nav>
+    <a href="index.html" class="logo">
+      <span class="badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#020000" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></span>
+      BarberNearMe
+    </a>
+    <a href="index.html" class="back">← Ana sayfa</a>
+  </nav></div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>İşletme Kaydı Oluştur</h1>
+    <p>Dükkanını kaydet — bilgilerin doğrudan BarberNearMe uygulamasına işlenir ve müşteriler seni görmeye başlar.</p>
+  </div>
+
+  <form id="form">
+    <!-- Temel bilgiler -->
+    <div class="sect">
+      <h2>Temel Bilgiler</h2>
+      <label>Dükkan Adı *</label>
+      <input id="shopName" placeholder="Ör. S&G Erkek Kuaförü" required />
+      <div class="row">
+        <div><label>Ad *</label><input id="firstName" placeholder="Ahmet" required /></div>
+        <div><label>Soyad</label><input id="lastName" placeholder="Yılmaz" /></div>
+      </div>
+      <label>E-posta *</label>
+      <input id="email" type="email" placeholder="berber@email.com" required />
+      <label>Telefon</label>
+      <input id="phone" placeholder="+90 5XX XXX XX XX" />
+      <label>Şifre * (en az 6 karakter)</label>
+      <input id="password" type="password" placeholder="••••••••" required />
+    </div>
+
+    <!-- Konum & saatler -->
+    <div class="sect">
+      <h2>Konum & Çalışma Saatleri</h2>
+      <label>Adres</label>
+      <input id="address" placeholder="Cadde, sokak, no" />
+      <div class="row">
+        <div><label>Mahalle</label><input id="neighborhood" placeholder="Gülbahçe" /></div>
+        <div><label>Şehir</label><input id="city" placeholder="İzmir" value="İzmir" /></div>
+      </div>
+      <div class="row">
+        <div><label>Enlem (lat) *</label><input id="lat" type="number" step="any" placeholder="38.3336" required /></div>
+        <div><label>Boylam (lng) *</label><input id="lng" type="number" step="any" placeholder="26.6448" required /></div>
+      </div>
+      <button type="button" class="geoBtn" id="geoBtn">📍 Konumumu kullan</button>
+      <p class="hint">Haritada görünmen için konum gerekli. "Konumumu kullan" ile otomatik doldurabilirsin.</p>
+
+      <div class="row" style="margin-top:12px">
+        <div><label>Açılış</label><input id="openTime" placeholder="09:00" value="09:00" /></div>
+        <div><label>Kapanış</label><input id="closeTime" placeholder="20:00" value="20:00" /></div>
+      </div>
+      <label>Açık Günler</label>
+      <div class="days" id="days"></div>
+    </div>
+
+    <!-- Hizmetler -->
+    <div class="sect">
+      <h2>Hizmetler</h2>
+      <div id="services"></div>
+      <button type="button" class="addBtn" id="addService">+ Hizmet ekle</button>
+    </div>
+
+    <!-- Çalışanlar -->
+    <div class="sect">
+      <h2>Çalışanlar</h2>
+      <div id="staff"></div>
+      <button type="button" class="addBtn" id="addStaff">+ Çalışan ekle</button>
+    </div>
+
+    <button type="submit" class="submit" id="submit">İşletmeyi Kaydet</button>
+    <div class="msg" id="msg"></div>
+  </form>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, GeoPoint, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// Firebase web config — public by design (Firestore kurallarıyla korunur)
+const app = initializeApp({
+  apiKey: "AIzaSyBgtVcq9Www99US9wm2n_jAsWD4aa1BZGM",
+  authDomain: "barbernearme-b86c8.firebaseapp.com",
+  projectId: "barbernearme-b86c8",
+  storageBucket: "barbernearme-b86c8.firebasestorage.app",
+  messagingSenderId: "1099137442128",
+  appId: "1:1099137442128:web:bfd9583227862e692ecc55",
+});
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Günler: 0=Pzt … 6=Paz (uygulamayla aynı)
+const DAY_NAMES = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+const daysEl = document.getElementById('days');
+const dayState = [true,true,true,true,true,true,false]; // Paz kapalı varsayılan
+DAY_NAMES.forEach((d,i)=>{
+  const el = document.createElement('div');
+  el.className = 'day' + (dayState[i]?' on':'');
+  el.textContent = d;
+  el.onclick = ()=>{ dayState[i]=!dayState[i]; el.classList.toggle('on'); };
+  daysEl.appendChild(el);
+});
+
+// Dinamik hizmet/çalışan satırları
+function addRow(container, fields){
+  const wrap = document.createElement('div');
+  wrap.className = 'rowItem';
+  fields.forEach(f=>{
+    const inp = document.createElement('input');
+    inp.placeholder = f.ph; inp.dataset.key = f.key;
+    if (f.type) inp.type = f.type;
+    wrap.appendChild(inp);
+  });
+  const del = document.createElement('button');
+  del.type='button'; del.className='del'; del.textContent='×';
+  del.onclick = ()=> wrap.remove();
+  wrap.appendChild(del);
+  container.appendChild(wrap);
+}
+const servicesEl = document.getElementById('services');
+const staffEl = document.getElementById('staff');
+function addService(){ addRow(servicesEl, [
+  {key:'name',ph:'Hizmet (ör. Saç)'},{key:'price',ph:'₺',type:'number'},{key:'dur',ph:'dk',type:'number'}
+]); }
+function addStaff(){ addRow(staffEl, [{key:'name',ph:'Ad'},{key:'title',ph:'Ünvan (ör. Usta Berber)'}]); }
+document.getElementById('addService').onclick = addService;
+document.getElementById('addStaff').onclick = addStaff;
+addService(); addStaff(); // birer tane başlangıç
+
+// Konumumu kullan
+document.getElementById('geoBtn').onclick = ()=>{
+  if (!navigator.geolocation){ alert('Tarayıcı konum desteklemiyor.'); return; }
+  navigator.geolocation.getCurrentPosition(
+    p => { document.getElementById('lat').value = p.coords.latitude.toFixed(6); document.getElementById('lng').value = p.coords.longitude.toFixed(6); },
+    () => alert('Konum alınamadı. İzin verdiğinden emin ol.')
+  );
+};
+
+function collect(container){
+  return [...container.children].map(row=>{
+    const o={}; [...row.querySelectorAll('input')].forEach(i=> o[i.dataset.key]=i.value.trim()); return o;
+  });
+}
+
+const msg = document.getElementById('msg');
+const submitBtn = document.getElementById('submit');
+function show(type, text){ msg.className = 'msg ' + type; msg.textContent = text; }
+
+const ERR = {
+  'auth/email-already-in-use':'Bu e-posta zaten kayıtlı. Farklı bir e-posta dene.',
+  'auth/invalid-email':'Geçersiz e-posta adresi.',
+  'auth/weak-password':'Şifre en az 6 karakter olmalı.',
+  'auth/network-request-failed':'İnternet bağlantısı yok.',
+};
+
+document.getElementById('form').onsubmit = async (e)=>{
+  e.preventDefault();
+  const v = id => document.getElementById(id).value.trim();
+
+  const shopName=v('shopName'), firstName=v('firstName'), email=v('email'), password=v('password');
+  const lat=parseFloat(v('lat')), lng=parseFloat(v('lng'));
+  if (!shopName||!firstName||!email||!password){ show('err','Lütfen zorunlu (*) alanları doldur.'); return; }
+  if (password.length<6){ show('err','Şifre en az 6 karakter olmalı.'); return; }
+  if (isNaN(lat)||isNaN(lng)){ show('err','Konum (enlem/boylam) gerekli — "Konumumu kullan"a basabilirsin.'); return; }
+
+  const services = collect(servicesEl)
+    .filter(s=>s.name)
+    .map((s,i)=>({ id:'s'+(i+1), name:s.name, price:Number(s.price)||0, durationMin:Number(s.dur)||30 }));
+  const staff = collect(staffEl)
+    .filter(s=>s.name)
+    .map((s,i)=>({ id:'st'+(i+1), name:s.name, title:s.title||'Berber' }));
+  const days = dayState.map((on,i)=>on?i:-1).filter(i=>i>=0);
+
+  submitBtn.disabled=true; submitBtn.textContent='Kaydediliyor…'; msg.className='msg';
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const uid = cred.user.uid;
+
+    await setDoc(doc(db,'users',uid), {
+      uid, firstName, lastName:v('lastName'), email, phone:v('phone'), role:'barber', createdAt: serverTimestamp(),
+    });
+    await setDoc(doc(db,'barbers',uid), {
+      ownerId: uid, shopName, email, phone:v('phone'),
+      address:v('address'), neighborhood:v('neighborhood'), city:v('city')||'İzmir', country:'TR',
+      location: new GeoPoint(lat,lng),
+      photoURLs: [], licenseURL: '',
+      services, staff,
+      workingHours: { days, openTime:v('openTime')||'09:00', closeTime:v('closeTime')||'20:00', slotDurationMin:30 },
+      rating: 0, reviewCount: 0, isActive: true, createdAt: serverTimestamp(),
+    });
+
+    show('ok','✓ İşletmen kaydedildi! Artık BarberNearMe uygulamasında görünüyorsun. Uygulamadan bu e-posta ve şifreyle giriş yapabilirsin.');
+    submitBtn.textContent='Kaydedildi ✓';
+    document.getElementById('form').reset();
+  }catch(err){
+    show('err', ERR[err.code] || 'Bir sorun oluştu: '+(err.code||err.message));
+    submitBtn.disabled=false; submitBtn.textContent='İşletmeyi Kaydet';
+  }
+};
+</script>
+</body>
+</html>

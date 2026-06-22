@@ -58,7 +58,7 @@
 <div class="wrap">
   <div class="hero">
     <h1>İşletme Kaydı Oluştur</h1>
-    <p>Dükkanını kaydet — bilgilerin doğrudan BarberNearMe uygulamasına işlenir ve müşteriler seni görmeye başlar.</p>
+    <p>Dükkanını kaydet, bilgilerin doğrudan BarberNearMe uygulamasına işlenir ve müşteriler seni görmeye başlar.</p>
   </div>
 
   <form id="form">
@@ -125,7 +125,7 @@
   <div class="sect" id="successPanel" style="display:none;text-align:center;margin-bottom:60px">
     <h2 style="color:#15803d;font-size:18px">✓ İşletmen Kaydedildi</h2>
     <p style="color:var(--muted);margin:10px 0 2px">Artık BarberNearMe uygulamasında görünüyorsun.</p>
-    <p style="font-weight:800;margin-bottom:18px">Son adım — uygulamayı telefonuna indir</p>
+    <p style="font-weight:800;margin-bottom:18px">Son adım: uygulamayı telefonuna indir</p>
     <img src="qr-app.png" alt="Uygulama indirme QR kodu" width="200" height="200"
          style="border:1px solid var(--line);border-radius:14px;padding:8px;background:#fff" />
     <p class="hint" style="margin-top:12px;font-size:13px">📱 Telefonunun kamerasıyla okut → uygulamayı indir</p>
@@ -223,7 +223,7 @@ document.getElementById('form').onsubmit = async (e)=>{
   const lat=parseFloat(v('lat')), lng=parseFloat(v('lng'));
   if (!shopName||!firstName||!email||!password){ show('err','Lütfen zorunlu (*) alanları doldur.'); return; }
   if (password.length<6){ show('err','Şifre en az 6 karakter olmalı.'); return; }
-  if (isNaN(lat)||isNaN(lng)){ show('err','Konum (enlem/boylam) gerekli — "Konumumu kullan"a basabilirsin.'); return; }
+  if (isNaN(lat)||isNaN(lng)){ show('err','Konum (enlem/boylam) gerekli, "Konumumu kullan"a basabilirsin.'); return; }
 
   const services = collect(servicesEl)
     .filter(s=>s.name)

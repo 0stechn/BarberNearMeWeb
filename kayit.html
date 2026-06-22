@@ -120,6 +120,18 @@
     <button type="submit" class="submit" id="submit">İşletmeyi Kaydet</button>
     <div class="msg" id="msg"></div>
   </form>
+
+  <!-- Kayıt sonrası: uygulamaya yönlendiren QR -->
+  <div class="sect" id="successPanel" style="display:none;text-align:center;margin-bottom:60px">
+    <h2 style="color:#15803d;font-size:18px">✓ İşletmen Kaydedildi</h2>
+    <p style="color:var(--muted);margin:10px 0 2px">Artık BarberNearMe uygulamasında görünüyorsun.</p>
+    <p style="font-weight:800;margin-bottom:18px">Son adım — uygulamayı telefonuna indir</p>
+    <img src="qr-app.png" alt="Uygulama indirme QR kodu" width="200" height="200"
+         style="border:1px solid var(--line);border-radius:14px;padding:8px;background:#fff" />
+    <p class="hint" style="margin-top:12px;font-size:13px">📱 Telefonunun kamerasıyla okut → uygulamayı indir</p>
+    <a class="submit" href="barbernearme.apk" download style="display:block;margin-top:16px">📱 Uygulamayı İndir (APK)</a>
+    <p class="hint" style="margin-top:14px">Kaydolduğun e-posta ve şifreyle uygulamadan giriş yapabilirsin.</p>
+  </div>
 </div>
 
 <script type="module">
@@ -240,9 +252,10 @@ document.getElementById('form').onsubmit = async (e)=>{
     });
 
     sendEmailVerification(cred.user).catch(()=>{});
-    show('ok','✓ İşletmen kaydedildi! Artık BarberNearMe uygulamasında görünüyorsun. Uygulamaya bu e-posta ve şifreyle giriş yapabilirsin (e-postandaki doğrulama linkine tıkladıktan sonra).');
-    submitBtn.textContent='Kaydedildi ✓';
     document.getElementById('form').reset();
+    document.getElementById('form').style.display = 'none';
+    document.getElementById('successPanel').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }catch(err){
     show('err', ERR[err.code] || 'Bir sorun oluştu: '+(err.code||err.message));
     submitBtn.disabled=false; submitBtn.textContent='İşletmeyi Kaydet';
